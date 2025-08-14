@@ -3,7 +3,7 @@ name: Deploy API to Azure
 on:
   push:
     branches:
-      - API  # <-- deploy on pushes to the API branch
+      - api  # <-- deploy on pushes to the API branch
 
 jobs:
   build-and-deploy:
@@ -36,3 +36,4 @@ jobs:
           app-name: poc-api-app
           slot-name: production
           package: ./api  # <-- point to folder with package.json and server.js
+
