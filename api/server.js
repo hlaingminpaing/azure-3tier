@@ -9,17 +9,34 @@ app.use(cors());
 app.use(express.json());
 
 
-// SQL connection config (no password here)
-const config = {
-    server: process.env.DB_SERVER,
-    authentication: {
-        type: 'azure-active-directory-msi-app-service'
-    },
-    options: {
-        database: process.env.DB_NAME,
-        encrypt: true
-    }
-};
+// // SQL connection config (no password here)
+// const config = {
+//     server: process.env.DB_SERVER,
+//     authentication: {
+//         type: 'azure-active-directory-msi-app-service'
+//     },
+//     options: {
+//         database: process.env.DB_NAME,
+//         encrypt: true
+//     }
+// };
+
+// const config = {
+//     server: process.env.DB_SERVER, // e.g., "poc-sql-server.privatelink.database.windows.net"
+//     authentication: {
+//         type: 'azure-active-directory-msi-app-service'
+//     },
+//     options: {
+//         database: process.env.DB_NAME, // e.g., "pocdb"
+//         encrypt: true,                 // required for Azure SQL
+//         port: 1433
+//     }
+// };
+
+const sql = require('mssql');
+
+const pool = new sql.ConnectionPool(process.env.DefaultConnection);
+
 
 app.get('/api/products', async (req, res) => {
     try {
